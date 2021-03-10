@@ -3,22 +3,69 @@
     Created on : 3 de mar. de 2021, 21:24:11
     Author     : Pedro
 --%>
-
+<%
+    String sNome = request.getParameter("nome");
+    String sEmail = request.getParameter("email");
+    String sFone = request.getParameter("telefone");
+    String sMensagem = request.getParameter("mensagem");
+    
+    sNome = sNome == null ? "" : sNome;
+    sEmail = sEmail == null ? "" : sEmail;
+    sFone = sFone == null ? "" : sFone;
+    sMensagem = sMensagem == null ? "" : sMensagem;
+    String status = null;
+    String msg = null;
+    String sErro = null;
+    try
+    {
+        if(!sNome.isEmpty() && !sEmail.isEmpty() && !sFone.isEmpty() && !sMensagem.isEmpty())
+        {
+            status = "sucess";
+            msg ="Mensagem enviada";
+        }
+    }
+    catch(NullPointerException ex)
+    {
+        
+    }
+    catch(Exception ex)
+    {
+        sErro = "Erro ao enviar mensagem";
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  <section id="contato">
+     <% 
+  if(sErro != null)
+        {       
+     %>
+        <div class="alert alert-danger"><%= sErro %></div>
+     <%
+         }
+     %>
     <div class="container">
         <div class="row">
             <div class="form-contato col-6">
                 <h3>Contato</h3>
+                <%
+                    if(msg != null && msg != null)
+                    {
+                %>
+                        <div class="alert alert-success">
+                                    <%= msg %>
+                                </div>
+                <%  
+                    }
+                %>
                 <form action="" method="POST">
                     <label>Nome completo</label>
-                    <input id="contatoNome" name="nome" type="text" maxlength="60" />
+                    <input id="contatoNome" name="nome" type="text" maxlength="60" required value="<%=sNome%>" />
                     <label>E-mail</label>
-                    <input id="contatoEmail" name="email" type="email" maxlength="255" />
+                    <input id="contatoEmail" name="email" type="email" maxlength="255" required value="<%=sEmail%>"/>
                     <label>Telefone</label>
-                    <input id="contatoTelefone" name="telefone" type="text" maxlength="11" />
+                    <input id="contatoTelefone" name="telefone" type="text" maxlength="11"required value="<%=sFone%>" />
                     <label>Mensagem</label>
-                    <textarea id="contatoMensagem" name="mensagem" type="text" maxlength="300"></textarea>
+                    <textarea id="contatoMensagem" name="mensagem" type="text" maxlength="300"required value="<%=sMensagem%>"></textarea>
                     <button type="submit">ENVIAR</button>
                 </form>
             </div>
