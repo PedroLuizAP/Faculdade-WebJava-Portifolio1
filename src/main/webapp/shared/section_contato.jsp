@@ -3,16 +3,15 @@
     Created on : 3 de mar. de 2021, 21:24:11
     Author     : Pedro
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String sNome = request.getParameter("nome");
     String sEmail = request.getParameter("email");
     String sFone = request.getParameter("telefone");
     String sMensagem = request.getParameter("mensagem");
     
-    sNome = sNome == null ? "" : sNome;
-    sEmail = sEmail == null ? "" : sEmail;
-    sFone = sFone == null ? "" : sFone;
-    sMensagem = sMensagem == null ? "" : sMensagem;
     String status = null;
     String msg = null;
     String sErro = null;
@@ -33,7 +32,6 @@
         sErro = "Erro ao enviar mensagem";
     }
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
  <section id="contato">
      <% 
   if(sErro != null)
@@ -59,13 +57,14 @@
                 %>
                 <form action="" method="POST">
                     <label>Nome completo</label>
-                    <input id="contatoNome" name="nome" type="text" maxlength="60" required value="<%=sNome%>" />
+                    <input id="contatoNome" name="nome" type="text" maxlength="60" required value="${sNome}" />
                     <label>E-mail</label>
-                    <input id="contatoEmail" name="email" type="email" maxlength="255" required value="<%=sEmail%>"/>
+                    <input id="contatoEmail" name="email" type="email" maxlength="255" required value="${sEmail}"/>
                     <label>Telefone</label>
-                    <input id="contatoTelefone" name="telefone" type="text" maxlength="11"required value="<%=sFone%>" />
+                    <input id="contatoTelefone" name="telefone" type="text" maxlength="11"required value="${sFone}" />
                     <label>Mensagem</label>
-                    <textarea id="contatoMensagem" name="mensagem" type="text" maxlength="300"required value="<%=sMensagem%>"></textarea>
+                    <textarea id="contatoMensagem" name="mensagem" type="text" maxlength="300"required value="${sMensagem}"></textarea>
+                    
                     <button type="submit">ENVIAR</button>
                 </form>
             </div>
